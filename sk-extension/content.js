@@ -6,6 +6,10 @@ function sk_request(query) {
 	return "https://api.hh.ru/vacancies/"
 }
 
+function sk_resume_request (resume_id) {
+	return "https://api.hh.ru/resumes/" + resume_id
+}
+
 var search_input = "input.bloko-input"
 
 window.onload = function() {
