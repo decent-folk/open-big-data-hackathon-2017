@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import abort
+from flask import make_response
 
 import json
 
@@ -21,6 +22,7 @@ def get_requirements():
         abort(400)
 
     requirements = ["C++", "TDD"]
-    json_data = json.dumps({"name":name,"requirements":requirements})
 
-    return json_data
+    resp = make_response(json.dumps({"name":name,"requirements":requirements}))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
