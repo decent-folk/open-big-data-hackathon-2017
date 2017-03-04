@@ -1,5 +1,13 @@
-function sk_span_skill(element){
-	return "<span class=\"sk_skill\">"+element+"</span>"
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function sk_span_skill(element, skill_style){
 	return "<span class=\""+skill_style+" sk_skill\">"+element+"</span>"
 }
