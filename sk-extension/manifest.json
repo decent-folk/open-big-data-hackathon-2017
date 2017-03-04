@@ -9,7 +9,7 @@
     {
       "matches": ["https://spb.hh.ru/search/vacancy*"],
       "css": ["styles.css"],
-      "js": ["jquery-2.2.4.min.js", "content.js"]
+      "js": ["jquery-2.2.4.min.js", "sk.js", "extensions.js", "content.js"]
     }
   ]
 }
