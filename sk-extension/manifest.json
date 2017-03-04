@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "SK-skills",
+  "version": "0.1",
+  "browser_action": {
+   "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://spb.hh.ru/search/vacancy*"],
+      "css": ["styles.css"],
+      "js": ["jquery-2.2.4.min.js", "content.js"]
+    }
+  ]
+}
