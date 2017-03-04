@@ -3,8 +3,15 @@
 	padding: 10px;
 }
 .sk_skill {
-	background-color: gray;
     color: white;
     margin: 0px 10px 0 10px;
     padding: 10px;
+}
+
+.sk_skill_missed {
+	background-color: gray;	
+}
+
+.sk_skill_match {
+	background-color: green;	
 }
