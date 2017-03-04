@@ -28,7 +28,7 @@ window.onload = function() {
 	$.getJSON( sk_request(query), function( data ) {
 
 		// var skills = data["requirements"]
-		var skills = ["UIKit", "Cocoa Touch", "Objective-C"];
+		var skills = ["UIKit", "Cocoa Touch", "Objective-C", "ООП", "Crashlytics"];
 
 
 		let resume_id = "fa318ae9ff0314d9a60039ed1f6e623356535a";
