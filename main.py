@@ -20,8 +20,6 @@ def parse_page(page):
     return loads(page)
 
 
-u = build_url({
-    'text': 'тестировщик'
-})
-r = request_page(u)
-p = parse_page(r)
+url = build_url({'text': 'тестировщик'})
+page = request_page(url)
+requirements = parse_page(page)
