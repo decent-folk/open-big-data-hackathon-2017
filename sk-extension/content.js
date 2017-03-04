@@ -2,6 +2,9 @@ function sk_span_skill(element){
 	return "<span class=\"sk_skill\">"+element+"</span>"
 }
 
+function sk_request(query) {
+	return "https://api.hh.ru/vacancies/"
+}
 
 var search_input = "input.bloko-input"
 
@@ -9,7 +12,7 @@ window.onload = function() {
 
 	query = $( search_input ).first().val()
 
-	$.getJSON( "https://api.hh.ru/vacancies/", function( data ) {
+	$.getJSON( sk_request(query), function( data ) {
 
 		// var skills = data["requirements"]
 		var skills = ["UIKit", "Cocoa Touch", "Objective-C"];
