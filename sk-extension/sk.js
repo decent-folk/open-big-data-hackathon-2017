@@ -5,7 +5,7 @@ const kServerURL = "http://185.158.153.129:5000"
 class SK {}
 
 SK.span_skill = function (element, skill_style){
-	return "<a href=\"#\" display=\"block\"><span class=\""+skill_style+" sk_skill\">"+element+"</span></a>"
+	return "<a href=\"#\"><span class=\""+skill_style+" sk_skill\">"+element+"</span></a>"
 }
 
 SK.request = function(query) {

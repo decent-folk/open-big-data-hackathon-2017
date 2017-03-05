@@ -4,8 +4,10 @@
 }
 .sk_skill {
     color: white;
-    margin: 0px 10px 0 10px;
+    margin: 2.5px 10px 2.5px 10px;
     padding: 10px;
+    display:inline-block;
+    border-radius: 20px;
 }
 
 .sk_skill_missed {
