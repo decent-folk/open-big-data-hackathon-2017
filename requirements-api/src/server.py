@@ -36,4 +36,8 @@ def get_requirements():
 def get_distance():
     word1 = request.args.get('a').encode('utf-8')
     word2 = request.args.get('b').encode('utf-8')
-    return distance(a, b)
+
+    resp = make_response(str(distance(a, b)))
+    resp.headers['Access-Control-Allow-Origin'] = "*"
+
+    return resp
