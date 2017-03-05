@@ -4,6 +4,8 @@ from flask import abort
 
 import json
 
+from main import HeadHunterSiteParser
+
 app = Flask(__name__)
 
 @app.errorhandler(400)
@@ -20,7 +22,8 @@ def get_requirements():
     if (name is None):
         abort(400)
 
-    requirements = ["C++", "TDD"]
-    json_data = json.dumps({"name":name,"requirements":requirements})
+    parser = HeadHunterSiteParser()
+    requirenments = parser.get_all_requirenments({"name":name, "searchfield":"name"})
+    json_data = json.dumps({"name":name,"requirements":requirenments})
 
     return json_data
