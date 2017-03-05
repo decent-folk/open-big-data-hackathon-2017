@@ -42,5 +42,44 @@ class UdacitySiteParser(BaseSiteParser):
         for course in self._tmp:
             s = course['title'].split()
             if name.lower() in course['title'].lower().split():
-                res.append({'name':course['title'], 'url':course['homepage']})
+                res.append({'name':course['title'], 'url':course['homepage'], 'image':(course['image'] if 'image' in course else '')})
         return res
+
+
+class KnigafundSiteParser(BaseSiteParser):
+    def __init__(self):
+        self._tmp = []
+
+    def __init__(self):
+        self._count = 0
+        self._tmp = {}
+
+    def build_url(self, args):
+        BASE_URL = 'https://www.googleapis.com/books/v1/volumes'
+        query = '&'.join('%s=%s' % (urllib2.quote(str(k)),
+                         urllib2.quote(str(v))) for k, v in args.iteritems())
+        return '?'.join([BASE_URL, query])
+
+    def request_page(self, url):
+        req = urllib2.urlopen(url)
+        content = req.read()
+        return content
+
+    def get_book_title(self, entry):
+        return entry['volumeInfo']['title'].encode('utf-8')
+
+    def get_book_url(self, entry):
+        try:
+            return entry['accessInfo']['webReaderLink']
+        except:
+            return ''
+
+    def get_book_img(self, entry):
+        try:
+            return entry['volumeInfo']['imageLinks']['thumbnail']
+        except:
+            return ''
+
+    def get_all_books(self, args):
+            page = self.request_page(self.build_url(args))
+            return [{'title':self.get_book_title(b), 'url':self.get_book_url(b), 'image':self.get_book_img(b)} for b in self._parse_page(page)['items']]

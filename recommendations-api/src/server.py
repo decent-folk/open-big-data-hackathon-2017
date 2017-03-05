@@ -32,3 +32,17 @@ def get_courses():
     resp.headers['Access-Control-Allow-Origin'] = "*"
 
     return resp
+
+@app.route("/getBooks")
+def get_books():
+    title = request.args.get('title')
+    if (title is None):
+        abort(400)
+
+    k = KnigafundSiteParser()
+    data = k.get_all_books('q':title, 'key':'AIzaSyCGUpmY-WKdrFiY_TJwt9gHZq9-6WoOwPM')
+
+    resp = make_response(json.dumps({"title":title,"recommendations":data}))
+    resp.headers['Access-Control-Allow-Origin'] = "*"
+
+    return resp
