@@ -26,6 +26,10 @@ class BaseSiteParser:
 
 
 class HeadHunterSiteParser(BaseSiteParser):
+    def __init__(self):
+        self._count = 0
+        self._tmp = {}
+
     def build_url(self, args):
         BASE_URL = 'https://api.hh.ru/vacancies'
         query = '&'.join('%s=%s' % (urllib2.quote(str(k)),
@@ -56,6 +60,11 @@ class HeadHunterSiteParser(BaseSiteParser):
         pattern = string.ascii_letters + string.digits + string.punctuation
         return all(x in pattern for x in s) and s[0].isupper() and not s.isdigit() and not all(x in string.punctuation for x in s)
 
+    def check(self, arr):
+        self._count = self._count + 1
+        for i in arr:
+            self._tmp[i] = self._tmp.get(i, 0) + 1
+
     def get_all_requirenments(self, args):
         for r in self.get_requirments(args):
             r = r.replace('</highlighttext> ', '')
@@ -74,7 +83,8 @@ class HeadHunterSiteParser(BaseSiteParser):
                 elif buf:
                     res.append(buf)
                     buf = ""
-
             if buf:
                 res.append(buf)
-            yield res
+            if res:
+                self.check(res)
+        return [key.strip() for key, value in self._tmp.iteritems() if value * 1.0 / self._count > 0.01]
