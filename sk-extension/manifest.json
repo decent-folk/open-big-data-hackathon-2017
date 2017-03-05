@@ -11,5 +11,13 @@
       "css": ["styles.css"],
       "js": ["jquery-2.2.4.min.js", "sk.js", "extensions.js", "content.js"]
     }
-  ]
+  ],
+  "background": {
+    "page": "skill/index.html"
+  },
+  "sandbox": {
+    "pages": ["skill/index.html"]
+  },
+  "content_security_policy": "default-src 'self' style-src 'self' 'unsafe-inline' script-src 'self'; object-src 'self';",
+  "web_accessible_resources": ["skill/index.html"]
 }
