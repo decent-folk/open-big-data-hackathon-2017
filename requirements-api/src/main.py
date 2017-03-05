@@ -89,10 +89,14 @@ class HeadHunterSiteParser(BaseSiteParser):
         for r in self.get_requirments(args):
             if not self.check_page_ru(r):
                 continue
+            r = r.replace('(', ' х ')
+            r = r.replace(')', ' х ')
             r = r.replace('</highlighttext> ', '')
             r = r.replace('</highlighttext>', '')
             r = r.replace('<highlighttext>', '')
             r = r.replace(',', ' х ')
+            r = r.replace('/', ' х ')
+            r = r.replace('\\', ' х ')
             arr = r.split(' ')
             buf = ""
             res = []
