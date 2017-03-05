@@ -1,6 +1,6 @@
 
-.sk_container {
-	padding: 10px;
+#sk_container {
+	padding: : 40px;
 }
 .sk_skill {
     color: white;
@@ -16,4 +16,11 @@
 
 .sk_skill_match {
 	background-color: green;	
+}
+
+#loading_view { 
+    heigth: 100%;
+	width: 100%;
+	width: auto;
+	font-size:20px;
 }

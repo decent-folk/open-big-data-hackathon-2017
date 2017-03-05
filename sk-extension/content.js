@@ -12,6 +12,9 @@ window.onload = function() {
                 var skills = data["requirements"]
 				// var skills = ["UIKit", "Cocoa Touch", "Objective-C", "ООП", "Crashlytics"];
 
+				SK.search_results().prepend( SK.skill_container_html() );
+				SK.skill_container_view().prepend( SK.loading_html() );
+
 				let resume_id = "fa318ae9ff0314d9a60039ed1f6e623356535a";
 				$.getJSON( SK.resume_request(resume_id), function( data ) {
 
@@ -20,8 +23,10 @@ window.onload = function() {
 
 						var skill_style = resume_skills.contains(skill) ? "sk_skill_match" : "sk_skill_missed"
 
-						SK.search_results().prepend( SK.span_skill(skill, skill_style) );
+						SK.skill_container_view().append( SK.span_skill(skill, skill_style) );
 					});
+
+					SK.loading_view().hide();
 				});
             },
             error: function(jqXHR, textStatus, errorThrown) {
