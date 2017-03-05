@@ -6,6 +6,7 @@ from flask import make_response
 import json
 
 from main import HeadHunterSiteParser
+from main import distance
 
 app = Flask(__name__)
 
@@ -30,3 +31,9 @@ def get_requirements():
     resp.headers['Access-Control-Allow-Origin'] = "*"
 
     return resp
+
+@app.route("/getDistance")
+def get_distance():
+    word1 = request.args.get('a').encode('utf-8')
+    word2 = request.args.get('b').encode('utf-8')
+    return distance(a, b)
