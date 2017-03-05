@@ -7,8 +7,6 @@ window.onload = function() {
             dataType:   "json",
             success:    function(data){
 
-            	console.log( query );
-
                 var skills = data["requirements"]
 				// var skills = ["UIKit", "Cocoa Touch", "Objective-C", "ООП", "Crashlytics"];
 
@@ -16,16 +14,24 @@ window.onload = function() {
 				SK.skill_container_view().prepend( SK.loading_html() );
 
 				let resume_id = "fa318ae9ff0314d9a60039ed1f6e623356535a";
-				$.getJSON( SK.resume_request(resume_id), function( data ) {
+				$.getJSON( SK.resume_request(resume_id), function( r_data ) {
 
-					var resume_skills = data["skill_set"]
+					var resume_skills = r_data["skill_set"]
 					skills.forEach(function(skill) {
 
-						var skill_style = resume_skills.contains(skill) ? "sk_skill_match" : "sk_skill_missed"
+						var skill_style = "sk_skill_missed"
+
+						resume_skills.forEach(function(resume_skill) {
+
+							// $.getJSON( kServerURL+"/getDistance?a="+skill[0]+"&b="+resume_skill, function( distance ) {
+
+							// 	skill_style = distance < 4 ? "sk_skill_match" : "sk_skill_missed"
+
+							// })
+						})
 
 						SK.skill_container_view().append( SK.span_skill(skill, skill_style) );
 					});
-
 					SK.loading_view().hide();
 				});
             },

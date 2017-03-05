@@ -1,33 +1,10 @@
-// Utils
-
-var getUrlParameter = function getUrlParameter(sParam) {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-
-    for (i = 0; i < sURLVariables.length; i++) {
-        sParameterName = sURLVariables[i].split('=');
-
-        if (sParameterName[0] === sParam) {
-            return sParameterName[1] === undefined ? true : sParameterName[1];
-        }
-    }
-};
-
-function timeConverter(UNIX_timestamp){
-
-    var d = new Date(UNIX_timestamp*1000);
-    return d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getYear()
-}
+// Design
 
 function row(img_src, title, url) {
 
     return "<center><div class=\"sk_row\"><img src=\'"+img_src+"\' class=\'course_img\' /><br>" + 
             "<a href=\'"+url+"\''>"+title+"</a></center></tr>"
 }
-
-// Design
 
 var app = angular.module('SKSkills', ['ngMaterial']);
 
@@ -67,7 +44,7 @@ var skill = getUrlParameter('name')
             courses.forEach(function(course) {
                 url = course["url"]
                 name = course["name"]
-                img_src = "http://www.danpontefract.com/wp-content/uploads/2012/05/edx.jpg"//course["img"]
+                img_src = course["image"]
 
                 $("#sk_courses").append( row(img_src,name,url) )
             })
