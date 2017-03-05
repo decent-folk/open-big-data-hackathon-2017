@@ -47,6 +47,10 @@ class HeadHunterSiteParser(BaseSiteParser):
         except:
             return ''
 
+    def check_page_ru(self, requirement):
+        return not all(x in string.printable for x in requirement)
+
+
     def get_requirments(self, args):
         page = self.request_page(self.build_url(args))
         json = self._parse_page(page)
@@ -54,7 +58,6 @@ class HeadHunterSiteParser(BaseSiteParser):
             for entry in self._parse_page(self.request_page(self.build_url(
                     merge_dicts(args, {'page': i}))))['items']:
                 yield self.get_requirment(entry)
-
 
     def test(self, s):
         pattern = string.ascii_letters + string.digits + string.punctuation
@@ -67,6 +70,8 @@ class HeadHunterSiteParser(BaseSiteParser):
 
     def get_all_requirenments(self, args):
         for r in self.get_requirments(args):
+            if not self.check_page_ru(r):
+                continue
             r = r.replace('</highlighttext> ', '')
             r = r.replace('</highlighttext>', '')
             r = r.replace('<highlighttext>', '')
@@ -74,6 +79,7 @@ class HeadHunterSiteParser(BaseSiteParser):
             arr = r.split(' ')
             buf = ""
             res = []
+            print r
             for s in arr:
                 if s and self.test(s):
                     buf = buf + ' ' + s.strip('.)')
@@ -88,3 +94,7 @@ class HeadHunterSiteParser(BaseSiteParser):
             if res:
                 self.check(res)
         return [key.strip() for key, value in self._tmp.iteritems() if value * 1.0 / self._count > 0.01]
+
+
+hh = HeadHunterSiteParser()
+print hh.get_all_requirenments({'text': 'Java', 'search_field':'name'})
