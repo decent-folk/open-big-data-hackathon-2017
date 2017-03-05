@@ -4,8 +4,8 @@ The api used for getting requariments for vacancy you want.
 
 # Methods
 
-GET:
-/getRequirements?name=Java%20Developer
+GET:<br>
+/getRequirements?name=Java%20Developer<br>
 name - the name of vacancy
 
 # For build image use 
