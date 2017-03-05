@@ -24,7 +24,7 @@ def get_requirements():
         abort(400)
 
     parser = HeadHunterSiteParser()
-    requirenments = parser.get_all_requirenments({"name":name, "searchfield":"name"})
+    requirenments = parser.get_all_requirenments({"name":name, "search_field":"name"})
 
     resp = make_response(json.dumps({"name":name,"requirements":requirenments}))
     resp.headers['Access-Control-Allow-Origin'] = "*"
