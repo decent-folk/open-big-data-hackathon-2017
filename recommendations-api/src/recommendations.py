@@ -46,7 +46,7 @@ class UdacitySiteParser(BaseSiteParser):
         return res
 
 
-class KnigafundSiteParser(BaseSiteParser):
+class GoogleSiteParser(BaseSiteParser):
     def __init__(self):
         self._tmp = []
 
