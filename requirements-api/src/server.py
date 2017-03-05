@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import abort
+from flask import make_response
 
 import json
 
@@ -24,6 +25,8 @@ def get_requirements():
 
     parser = HeadHunterSiteParser()
     requirenments = parser.get_all_requirenments({"name":name, "searchfield":"name"})
-    json_data = json.dumps({"name":name,"requirements":requirenments})
 
-    return json_data
+    resp = make_response(json.dumps({"name":name,"requirements":requirenments}))
+    resp.headers['Access-Control-Allow-Origin'] = "*"
+
+    return resp
