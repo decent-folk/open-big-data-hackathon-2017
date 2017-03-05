@@ -48,11 +48,12 @@ class HeadHunterSiteParser(BaseSiteParser):
             return ''
 
     def get_requirments(self, args):
-        page = self.request_page(self.build_url(args))
+        page = self.request_page(self.build_url(merge_dicts({'per_page': 500},
+                                                            args)))
         json = self._parse_page(page)
         for i in range(json['pages']):
             for entry in self._parse_page(self.request_page(self.build_url(
-                    merge_dicts(args, {'page': i}))))['items']:
+                    merge_dicts(args, {'page': i, 'per_page': 500}))))['items']:
                 yield self.get_requirment(entry)
 
 
