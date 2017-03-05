@@ -6,6 +6,7 @@ from flask import make_response
 import json
 
 from recommendations import UdacitySiteParser
+from recommendations import GoogleSiteParser
 
 usp = UdacitySiteParser() #Cache
 usp.get_courses()
@@ -40,7 +41,7 @@ def get_books():
         abort(400)
 
     g = GoogleSiteParser()
-    data = g.get_all_books('q':title, 'key':'AIzaSyCGUpmY-WKdrFiY_TJwt9gHZq9-6WoOwPM')
+    data = g.get_all_books({'q':title, 'key':'AIzaSyCGUpmY-WKdrFiY_TJwt9gHZq9-6WoOwPM'})
 
     resp = make_response(json.dumps({"title":title,"recommendations":data}))
     resp.headers['Access-Control-Allow-Origin'] = "*"
