@@ -19,7 +19,7 @@ def bad_request(error):
 
 @app.route("/getRequirements")
 def get_requirements():
-    name = request.args.get('name')
+    name = request.args.get('name').encode('utf-8')
     if (name is None):
         abort(400)
 
