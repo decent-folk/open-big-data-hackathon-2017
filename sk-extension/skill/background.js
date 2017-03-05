@@ -21,6 +21,11 @@ function timeConverter(UNIX_timestamp){
     return d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getYear()
 }
 
+function row(img_src, title, url) {
+
+    return "<center><div class=\"sk_row\"><img src=\'"+img_src+"\' class=\'course_img\' /><br>" + 
+            "<a href=\'"+url+"\''>"+title+"</a></center></tr>"
+}
 
 // Design
 
@@ -39,18 +44,58 @@ var app = angular.module('SKSkills', ['ngMaterial']);
     // default shades
     .accentPalette('purple', {
       'default': '200' // use shade 200 for default, and keep all other shades the same
-});
+    });
 
 });
+
 
 window.onload = function() {
+
 
 var skill = getUrlParameter('name')
     $("#stuff").text(skill) 
 
+
+// Courses
+    var courses_url = "http://185.158.153.129:5002/getCourses?skill="+skill
+    $.ajax({
+        url:        courses_url,
+        dataType:   "json",
+        success:    function(data){
+
+            courses = data["recommendations"]
+            courses.forEach(function(course) {
+                url = course["url"]
+                name = course["name"]
+                img_src = "http://www.danpontefract.com/wp-content/uploads/2012/05/edx.jpg"//course["img"]
+
+                $("#sk_courses").append( row(img_src,name,url) )
+            })
+        }
+    })
+
+// Books
+    var books_url = "http://185.158.153.129:5003/getBooks?skill="+skill
+    $.ajax({
+        url:        books_url,
+        dataType:   "json",
+        success:    function(data){
+
+            books = data["recommendations"]
+            books.forEach(function(book) {
+                url = book["url"]
+                name = book["title"]
+                img_src = book["image"]
+
+                $("#sk_books").append( row(img_src,name,url) )
+            })
+        }
+    })
+
+
 // Graphis
 
-var trend_url = "http://185.158.153.129:5001/getTrends?skill="+skill
+var trend_url = "http://185.158.153.129:5001/getTrends?skill="+skill 
 $.ajax({
         url:        trend_url,
         dataType:   "json",

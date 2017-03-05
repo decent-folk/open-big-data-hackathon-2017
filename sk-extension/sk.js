@@ -7,8 +7,8 @@ const kServerURL = "http://185.158.153.129:5000"
 class SK {}
 
 SK.span_skill = function (element, skill_style){
-	skillURL = chrome.extension.getURL("skill/index.html?name="+element)
-	return "<a href=\""+skillURL+"\"><span class=\""+skill_style+" sk_skill\">"+element+"</span></a>"
+	skillURL = chrome.extension.getURL("skill/index.html?name="+element[0])
+	return "<a href=\""+skillURL+"\"><span class=\""+skill_style+" sk_skill\">"+element[0]+"</span></a>"
 }
 
 SK.request = function(query) {
