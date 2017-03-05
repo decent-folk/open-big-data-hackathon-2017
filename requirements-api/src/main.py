@@ -86,13 +86,24 @@ class HeadHunterSiteParser(BaseSiteParser):
             self._tmp[i] = self._tmp.get(i, 0) + 1
 
     def get_all_requirenments(self, args):
+        prev_reqs = []
+        total_count = 0
         for r in self.get_requirments(args):
             if not self.check_page_ru(r):
                 continue
+            if r in prev_reqs:
+                continue
+            else:
+                prev_reqs.append(r)
+                total_count += 1
+            r = r.replace('(', ' х ')
+            r = r.replace(')', ' х ')
             r = r.replace('</highlighttext> ', '')
             r = r.replace('</highlighttext>', '')
             r = r.replace('<highlighttext>', '')
             r = r.replace(',', ' х ')
+            r = r.replace('/', ' х ')
+            r = r.replace('\\', ' х ')
             arr = r.split(' ')
             buf = ""
             res = []
@@ -109,15 +120,26 @@ class HeadHunterSiteParser(BaseSiteParser):
                 res.append(buf)
             if res:
                 self.check(res)
-        res0 = [key.strip() for key, value in sorted(self._tmp.items(), key=lambda x:x[1], reverse=True) if value * 1.0 / self._count > 0.01]
-        res = []
-        for i in res0:
+        res0 = {key.strip(): value for key, value in self._tmp.items()}
+        for word in res0.keys():
+            for phrase in res0.keys():
+                if word == phrase:
+                    continue
+                if word in phrase.split():
+                    res0[phrase] += res0[word]
+                    del res0[word]
+                    break
+        res = {}
+        for i in res0.keys():
             fl = True
-            for j in res:
+            for j in res.keys():
                 d = distance(i.lower(), j.lower())
                 if d <= min(len(i) // 3, len(j) // 3):
                     fl = False
+                    res[j] += res0[i]
                     break
             if fl:
-                res.append(i)
-        return res
+                res[i] = res0[i]
+        return sorted([(k, 1.0 * v / total_count) for k, v in res.iteritems()
+                       if 1.0 * v / total_count > 0.02],
+                      key=lambda x: x[1], reverse=True)
