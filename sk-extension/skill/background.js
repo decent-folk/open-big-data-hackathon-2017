@@ -75,7 +75,7 @@ var skill = getUrlParameter('name')
     })
 
 // Books
-    var books_url = "http://185.158.153.129:5003/getBooks?skill="+skill
+    var books_url = "http://185.158.153.129:5002/getBooks?title="+skill
     $.ajax({
         url:        books_url,
         dataType:   "json",
