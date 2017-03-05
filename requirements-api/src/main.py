@@ -80,7 +80,6 @@ class HeadHunterSiteParser(BaseSiteParser):
             arr = r.split(' ')
             buf = ""
             res = []
-            print r
             for s in arr:
                 if s and self.test(s):
                     buf = buf + ' ' + s.strip('.)')
@@ -94,8 +93,4 @@ class HeadHunterSiteParser(BaseSiteParser):
                 res.append(buf)
             if res:
                 self.check(res)
-        return [key.strip() for key, value in self._tmp.iteritems() if value * 1.0 / self._count > 0.01]
-
-
-hh = HeadHunterSiteParser()
-print hh.get_all_requirenments({'text': 'Java', 'search_field':'name'})
+        return [key.strip() for key, value in sorted(self._tmp.items(), key=lambda x:x[1], reverse=True) if value * 1.0 / self._count > 0.01]
